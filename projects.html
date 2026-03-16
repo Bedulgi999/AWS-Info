@@ -2,42 +2,41 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AWS Projects Page</title>
+    <title>The Projects Page</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap');
         body { font-family: 'Noto Sans KR', sans-serif; background-color: #f8fafc; }
     </style>
 </head>
-<body class="p-8 md:p-16">
+<body class="p-8 md:p-12">
     <div class="max-w-6xl mx-auto">
-        <div class="flex justify-between items-center mb-12">
+        <div class="flex justify-between items-center mb-10">
             <div>
                 <h1 class="text-4xl font-black text-slate-900 italic tracking-tighter">The projects page</h1>
-                <p class="text-slate-500 font-bold mt-2">AWS Infrastructure 핵심 서비스 대시보드</p>
+                <p class="text-slate-500 font-bold mt-1">AWS Infrastructure 핵심 서비스 대시보드</p>
             </div>
-            <a href="/AWS-Info/index.html" class="px-6 py-2 bg-white border border-slate-200 rounded-xl text-slate-400 font-bold hover:text-blue-600 transition shadow-sm">← Back</a>
+            <a href="/AWS-Info/index.html" class="px-5 py-2 bg-white border border-slate-200 rounded-xl text-slate-400 font-bold hover:text-blue-600 shadow-sm transition">← Back</a>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {% for s in services %}
-            <div onclick="openModal('{{ s.title }}', '{{ s.desc }}', '{{ s.link }}', '{{ s.cat }}')"
+            <div onclick="openModal('{{ s.title }}', '{{ s.desc }}', '{{ s.link }}', '{{ s.cat }}')" 
                  class="bg-white p-8 rounded-[2.5rem] border border-slate-100 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 cursor-pointer group flex flex-col justify-between h-64">
                 <div>
                     <div class="flex justify-between items-start mb-6">
                         <span class="px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest bg-blue-50 text-blue-600 border border-blue-100">
                             {{ s.cat }}
                         </span>
-                        <div class="w-12 h-12 flex items-center justify-center bg-slate-50 rounded-2xl group-hover:bg-blue-50 transition-colors">
-                            <img src="https://img.icons8.com/color/48/amazon-web-services.png" alt="AWS Icon" class="w-8 h-8 opacity-60 group-hover:opacity-100 transition-opacity">
+                        <div class="w-12 h-12 flex items-center justify-center bg-slate-50 rounded-2xl group-hover:bg-blue-50 transition-colors overflow-hidden p-2">
+                            <img src="https://img.icons8.com/color/48/amazon-web-services.png" class="w-full h-full object-contain">
                         </div>
                     </div>
                     <h2 class="text-2xl font-black text-slate-800 mb-2">{{ s.title }}</h2>
                     <p class="text-slate-400 text-xs font-medium">{{ s.short }}</p>
                 </div>
-                <div class="text-blue-600 font-black text-sm flex items-center">
-                    자세히 보기 <span class="ml-2 group-hover:translate-x-1 transition-transform">→</span>
+                <div class="text-blue-600 font-bold text-sm flex items-center group-hover:underline">
+                    자세히 보기 <span class="ml-1 group-hover:translate-x-1 transition-transform">→</span>
                 </div>
             </div>
             {% endfor %}
@@ -45,12 +44,12 @@
     </div>
 
     <div id="modal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-md flex items-center justify-center z-50 p-4" onclick="closeModal()">
-        <div class="bg-white w-full max-w-lg rounded-[3rem] p-10 shadow-2xl" onclick="event.stopPropagation()">
-            <span id="m-tag" class="text-[10px] font-black text-blue-600 border border-blue-100 bg-blue-50 px-3 py-1 rounded-full mb-4 inline-block uppercase"></span>
+        <div class="bg-white w-full max-w-lg rounded-[2.5rem] p-10 shadow-2xl" onclick="event.stopPropagation()">
+            <span id="m-tag" class="text-[10px] font-black text-blue-600 border border-blue-100 bg-blue-50 px-3 py-1 rounded-full mb-4 inline-block"></span>
             <h3 id="m-title" class="text-4xl font-black text-slate-900 mb-6 tracking-tighter"></h3>
             <p id="m-desc" class="text-slate-600 text-lg leading-relaxed mb-10 font-medium"></p>
             <div class="flex flex-col gap-3">
-                <a id="m-link" href="#" target="_blank" class="w-full py-5 bg-blue-600 text-white text-center font-black rounded-2xl hover:bg-blue-700 transition shadow-xl">AWS 콘솔로 이동</a>
+                <a id="m-link" href="#" target="_blank" class="w-full py-5 bg-blue-600 text-white text-center font-black rounded-2xl hover:bg-blue-700 transition shadow-xl">AWS 콘솔에서 확인</a>
                 <button onclick="closeModal()" class="w-full py-3 text-slate-400 font-bold hover:text-slate-600 transition">닫기</button>
             </div>
         </div>
@@ -64,9 +63,7 @@
             document.getElementById('m-tag').innerText = cat;
             document.getElementById('modal').classList.remove('hidden');
         }
-        function closeModal() {
-            document.getElementById('modal').classList.add('hidden');
-        }
+        function closeModal() { document.getElementById('modal').classList.add('hidden'); }
     </script>
 </body>
 </html>
