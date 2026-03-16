@@ -2,139 +2,40 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AWS Project Dashboard</title>
+    <title>AWS Projects</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap');
-        body { font-family: 'Noto Sans KR', sans-serif; background-color: #f1f5f9; }
-        .modal { transition: opacity 0.25s ease; }
-        .grid-3-cols {
-            display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 1.5rem;
-        }
-        @media (max-width: 1024px) { .grid-3-cols { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-        @media (max-width: 640px) { .grid-3-cols { grid-template-columns: repeat(1, minmax(0, 1fr)); } }
+        body { font-family: 'Noto Sans KR', sans-serif; background-color: #f8fafc; }
     </style>
 </head>
-<body class="p-6 md:p-12">
+<body class="p-8">
     <div class="max-w-6xl mx-auto">
-        <div class="flex justify-between items-center mb-10">
-            <h1 class="text-4xl font-black text-slate-900 mb-2 italic tracking-tight">The projects page</h1>
-            <a href="index.html" class="px-5 py-2 bg-white border border-slate-200 rounded-lg text-slate-400 font-bold hover:text-blue-600 transition shadow-sm">Home</a>
-        </div>
-
-        <div class="bg-slate-900 rounded-3xl p-8 mb-10 shadow-2xl border border-slate-700">
-            <h2 class="text-white text-xl font-bold mb-6 flex items-center gap-2">
-                <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span> Infrastructure Architecture
-            </h2>
-            <div class="bg-slate-800/50 rounded-2xl p-8 border border-slate-700">
-                <div class="flex flex-wrap justify-center items-center gap-4 text-white font-bold text-xs md:text-sm">
-                    <div class="px-4 py-2 bg-purple-600 rounded-lg shadow-lg">Route 53</div>
-                    <span class="text-slate-500">→</span>
-                    <div class="px-4 py-2 bg-indigo-600 rounded-lg shadow-lg">CloudFront</div>
-                    <span class="text-slate-500">→</span>
-                    <div class="px-4 py-2 bg-green-600 rounded-lg shadow-lg">ALB</div>
-                    <span class="text-slate-500">→</span>
-                    <div class="px-4 py-2 bg-orange-600 rounded-lg shadow-lg">ECS/EKS</div>
-                    <span class="text-slate-500">↕</span>
-                    <div class="px-4 py-2 bg-blue-600 rounded-lg shadow-lg">S3 / RDS</div>
-                </div>
-                <p class="mt-6 text-slate-400 text-sm text-center leading-relaxed max-w-2xl mx-auto">
-                    전체 서비스는 Multi-AZ 환경에 배포되어 고가용성(High Availability)을 보장합니다.<br>
-                    사용자 트래픽은 Route 53과 CloudFront를 거쳐 ALB로 도달하며, <br>
-                    ALB 리스너 규칙에 따라 Private Subnet에 있는 각 컨테이너 서비스로 안전하게 라우팅됩니다.
-                </p>
-            </div>
-        </div>
-
-        <div id="card-grid" class="grid-3-cols">
-            </div>
-    </div>
-
-    <div id="modal" class="modal opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center z-50 p-4">
-        <div class="absolute w-full h-full bg-slate-900/60 backdrop-blur-sm" onclick="closeModal()"></div>
-        <div class="bg-white w-full max-w-lg rounded-3xl shadow-2xl z-50 p-8 transform scale-95 transition-all">
-            <div id="modal-badge" class="inline-block px-3 py-1 rounded-full text-[10px] font-black uppercase mb-4 border"></div>
-            <h3 id="modal-title" class="text-3xl font-black text-slate-900 mb-4 tracking-tighter"></h3>
-            
-            <div class="space-y-6 mb-10">
-                <div>
-                    <h4 class="text-blue-600 font-bold mb-2">● 서비스 요약</h4>
-                    <p id="modal-short" class="text-slate-700 font-bold"></p>
-                </div>
-                <div>
-                    <h4 class="text-blue-600 font-bold mb-2">● 기술적 상세 설명</h4>
-                    <p id="modal-desc" class="text-slate-600 leading-relaxed"></p>
-                </div>
-            </div>
-
-            <div class="flex flex-col gap-3">
-                <a id="modal-link" target="_blank" href="#" class="w-full py-4 bg-blue-600 text-white text-center font-bold rounded-2xl hover:bg-blue-700 transition shadow-lg shadow-blue-100">AWS 서비스 콘솔로 이동</a>
-                <button onclick="closeModal()" class="w-full py-3 text-slate-400 font-bold hover:text-slate-600 transition">닫기</button>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        const services = [
-            // 캡처 이미지 내 아이콘 스타일 반영 (AWS 아이콘 SVG 포함)
-            {{ cat: 'Networking', title: 'VPC', color: 'orange', short: '격리된 가상 네트워크', desc: ' Virtual Private Cloud를 통해 고객만의 논리적으로 격리된 네트워크 섹션을 구축합니다. 서브넷 구성, 라우팅 테이블 설정을 통해 인프라의 기초 체력을 형성하며 보안 그룹으로 정밀한 접근 제어가 가능합니다.', link: 'https://console.aws.amazon.com/vpc', icon: `<svg class="w-full h-full" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>` }},
-            {{ cat: 'Compute', title: 'EC2', color: 'orange', short: '확장 가능한 가상 서버', desc: 'Amazon Elastic Compute Cloud는 클라우드에서 안전하고 크기 조정이 가능한 컴퓨팅 용량을 제공합니다. Auto Scaling Group과 결합하여 트래픽 부하에 유연하게 대응합니다.', link: 'https://console.aws.amazon.com/ec2', icon: `<svg class="w-full h-full" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"></path></svg>` }},
-            {{ cat: 'Compute', title: 'ECS Fargate', color: 'blue', short: '서버리스 컨테이너 운영', desc: 'Docker 인스턴스를 관리하지 않고 컨테이너를 직접 실행하는 서버리스 컴퓨팅 엔진입니다. 애플리케이션에 필요한 CPU 및 메모리를 지정하기만 하면 AWS가 인프라 관리를 대신 처리합니다.', link: 'https://console.aws.amazon.com/ecs', icon: `<svg class="w-full h-full" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>` }},
-            {{ cat: 'Storage', title: 'S3', color: 'green', short: '무한 확장 객체 스토리지', desc: ' Simple Storage Service는 업계 최고의 확장성, 데이터 가용성 및 보안을 제공합니다. 정적 웹 사이트 호스팅, 데이터 레이크 구축, 백업 및 아카이빙 등 다방면에서 활용됩니다.', link: 'https://console.aws.amazon.com/s3', icon: `<svg class="w-full h-full" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path></svg>` }},
-            {{ cat: 'Monitoring', title: 'CloudWatch', color: 'red', short: '실시간 리소스 모니터링', desc: 'AWS 리소스와 애플리케이션의 상태를 지표와 로그를 통해 감시합니다. 지표에 따른 자동화된 알람을 생성하여 DevOps 운영의 핵심 도구로 활용됩니다.', link: 'https://console.aws.amazon.com/cloudwatch', icon: `<svg class="w-full h-full" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>` }},
-            {{ cat: 'Serverless', title: 'Lambda', color: 'yellow', short: '이벤트 기반 함수 실행', desc: '서버 프로비저닝 없이 코드만 업로드하여 실행합니다. S3 업로드, API 요청, DB 변경 등의 이벤트에 즉각 반응하며 사용한 시간만큼만 비용을 지불하는 경제적인 서비스입니다.', link: 'https://console.aws.amazon.com/lambda', icon: `<svg class="w-full h-full" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>` }}
-        ];
-
-        const colors = {{
-            orange: 'bg-orange-50 text-orange-600 border-orange-100',
-            blue: 'bg-blue-50 text-blue-600 border-blue-100',
-            green: 'bg-green-50 text-green-600 border-green-100',
-            red: 'bg-red-50 text-red-600 border-red-100',
-            yellow: 'bg-yellow-50 text-yellow-700 border-yellow-100'
-        }};
-
-        const grid = document.getElementById('card-grid');
-        services.forEach(s => {{
-            const card = document.createElement('div');
-            card.className = "bg-white p-8 rounded-3xl border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer flex flex-col justify-between";
-            card.onclick = () => openModal(s);
-            card.innerHTML = `
-                <div>
-                    <div class="flex items-center justify-between mb-4 gap-2">
-                        <span class="${{colors[s.color]}} px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest border">${{s.cat}}</span>
-                        <div class="w-10 h-10 p-2 bg-white rounded-2xl shadow-inner border border-slate-100 text-slate-400">
-                            ${{s.icon}}
-                        </div>
+        <h1 class="text-4xl font-black text-slate-900 mb-10 italic">The projects page</h1>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {% for s in services %}
+            <div onclick="openModal('{{ s.title }}', '{{ s.desc }}', '{{ s.link }}', '{{ s.cat }}')" 
+                 class="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer">
+                <div class="flex justify-between items-start mb-4">
+                    <span class="text-[10px] font-black uppercase tracking-widest text-blue-600 bg-blue-50 px-2 py-1 rounded">{{ s.cat }}</span>
+                    <div class="w-8 h-8 bg-slate-50 rounded-lg flex items-center justify-center text-slate-300">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path></svg>
                     </div>
-                    <h2 class="text-2xl font-bold text-slate-800 mb-2">${{s.title}}</h2>
-                    <p class="text-slate-400 text-xs font-medium italic">${{s.short}}</p>
                 </div>
-                <div class="mt-8 text-blue-600 font-bold text-xs flex items-center">자세히 보기 <span class="ml-2">→</span></div>
-            `;
-            grid.appendChild(card);
-        }});
+                <h2 class="text-2xl font-bold text-slate-800 mb-2">{{ s.title }}</h2>
+                <p class="text-slate-400 text-xs">{{ s.short }}</p>
+                <div class="mt-6 text-blue-600 font-bold text-sm">자세히 보기 →</div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
 
-        function openModal(s) {{
-            const modal = document.getElementById('modal');
-            const badge = document.getElementById('modal-badge');
-            document.getElementById('modal-title').innerText = s.title;
-            document.getElementById('modal-short').innerText = s.short;
-            document.getElementById('modal-desc').innerText = s.desc;
-            document.getElementById('modal-link').href = s.link;
-            badge.innerText = s.cat;
-            badge.className = `inline-block px-3 py-1 rounded-full text-[10px] font-black uppercase mb-4 border ${{colors[s.color]}}`;
-            modal.classList.remove('opacity-0', 'pointer-events-none');
-            modal.querySelector('div:last-child').classList.replace('scale-95', 'scale-100');
-        }}
-
-        function closeModal() {{
-            const modal = document.getElementById('modal');
-            modal.classList.add('opacity-0', 'pointer-events-none');
-            modal.querySelector('div:last-child').classList.replace('scale-100', 'scale-95');
-        }}
-    </script>
-</body>
-</html>
+    <div id="modal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+        <div class="bg-white w-full max-w-lg rounded-[2.5rem] p-10 shadow-2xl" onclick="event.stopPropagation()">
+            <span id="m-tag" class="text-[10px] font-black text-blue-600 border border-blue-100 px-3 py-1 rounded-full mb-4 inline-block"></span>
+            <h3 id="m-title" class="text-3xl font-black text-slate-900 mb-6"></h3>
+            <p id="m-desc" class="text-slate-600 mb-10 leading-relaxed"></p>
+            <div class="flex flex-col gap-3">
+                <a id="m-link" href="#" target="_blank" class="w-full py-4 bg-blue-600 text-white text-center font-bold rounded-2xl hover:bg-blue-700 transition">AWS 콘솔로 이동</a>
+                <button onclick="closeModal()" class="w-full py-3
