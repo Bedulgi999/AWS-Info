@@ -3,145 +3,138 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Architecture Dashboard</title>
+    <title>AWS Project Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap');
         body { font-family: 'Noto Sans KR', sans-serif; background-color: #f1f5f9; }
-        .grid-3-cols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.5rem; }
+        .modal { transition: opacity 0.25s ease; }
+        .grid-3-cols {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 1.5rem;
+        }
         @media (max-width: 1024px) { .grid-3-cols { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
         @media (max-width: 640px) { .grid-3-cols { grid-template-columns: repeat(1, minmax(0, 1fr)); } }
-        .animate-fade-in { animation: fadeIn 0.5s ease-out; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body class="p-6 md:p-12">
     <div class="max-w-6xl mx-auto">
-        <div class="flex justify-between items-center mb-8">
-            <div>
-                <h1 class="text-4xl font-black text-slate-900 italic tracking-tighter">AWS Infrastructure</h1>
-                <p class="text-slate-500 font-medium">Enterprise-grade Cloud Architecture Dashboard</p>
-            </div>
-            <a href="index.html" class="px-6 py-3 bg-white border border-slate-200 rounded-2xl text-slate-600 font-bold hover:text-blue-600 hover:border-blue-600 transition-all shadow-sm">Home</a>
+        <div class="flex justify-between items-center mb-10">
+            <h1 class="text-4xl font-black text-slate-900 mb-2 italic tracking-tight">The projects page</h1>
+            <a href="index.html" class="px-5 py-2 bg-white border border-slate-200 rounded-lg text-slate-400 font-bold hover:text-blue-600 transition shadow-sm">Home</a>
         </div>
 
-        <div class="bg-slate-900 rounded-[2.5rem] p-10 mb-12 shadow-2xl border border-slate-800 relative overflow-hidden">
-            <div class="relative z-10">
-                <h2 class="text-white text-xl font-bold mb-8 flex items-center gap-3">
-                    <span class="flex h-3 w-3 relative">
-                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                        <span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
-                    </span>
-                    System Traffic Flow
-                </h2>
-                <div class="flex flex-wrap justify-between items-center gap-4 bg-slate-800/40 p-8 rounded-3xl border border-slate-700/50 backdrop-blur-sm">
-                    <div class="flex flex-col items-center gap-2 group">
-                        <div class="px-5 py-3 bg-purple-600 rounded-xl text-white font-bold text-sm shadow-lg group-hover:scale-110 transition-transform">Route 53</div>
-                        <span class="text-[10px] text-slate-500 uppercase font-black">DNS</span>
-                    </div>
-                    <div class="text-slate-600 font-bold">▶</div>
-                    <div class="flex flex-col items-center gap-2 group">
-                        <div class="px-5 py-3 bg-indigo-600 rounded-xl text-white font-bold text-sm shadow-lg group-hover:scale-110 transition-transform">CloudFront</div>
-                        <span class="text-[10px] text-slate-500 uppercase font-black">CDN</span>
-                    </div>
-                    <div class="text-slate-600 font-bold">▶</div>
-                    <div class="flex flex-col items-center gap-2 group">
-                        <div class="px-5 py-3 bg-pink-600 rounded-xl text-white font-bold text-sm shadow-lg group-hover:scale-110 transition-transform">WAF</div>
-                        <span class="text-[10px] text-slate-500 uppercase font-black">Security</span>
-                    </div>
-                    <div class="text-slate-600 font-bold">▶</div>
-                    <div class="flex flex-col items-center gap-2 group">
-                        <div class="px-5 py-3 bg-green-600 rounded-xl text-white font-bold text-sm shadow-lg group-hover:scale-110 transition-transform">ALB</div>
-                        <span class="text-[10px] text-slate-500 uppercase font-black">L7 Load Balancer</span>
-                    </div>
-                    <div class="text-slate-600 font-bold">▶</div>
-                    <div class="flex flex-col items-center gap-2 group">
-                        <div class="px-6 py-4 bg-orange-600 rounded-2xl text-white font-black text-sm shadow-xl group-hover:scale-110 transition-transform ring-4 ring-orange-600/20">ECS / EKS</div>
-                        <span class="text-[10px] text-slate-500 uppercase font-black">Compute</span>
-                    </div>
-                    <div class="text-slate-600 font-bold">↕</div>
-                    <div class="flex flex-col items-center gap-2 group">
-                        <div class="px-5 py-3 bg-blue-600 rounded-xl text-white font-bold text-sm shadow-lg group-hover:scale-110 transition-transform">RDS / S3</div>
-                        <span class="text-[10px] text-slate-500 uppercase font-black">Data Store</span>
-                    </div>
+        <div class="bg-slate-900 rounded-3xl p-8 mb-10 shadow-2xl border border-slate-700">
+            <h2 class="text-white text-xl font-bold mb-6 flex items-center gap-2">
+                <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span> Infrastructure Architecture
+            </h2>
+            <div class="bg-slate-800/50 rounded-2xl p-8 border border-slate-700">
+                <div class="flex flex-wrap justify-center items-center gap-4 text-white font-bold text-xs md:text-sm">
+                    <div class="px-4 py-2 bg-purple-600 rounded-lg shadow-lg">Route 53</div>
+                    <span class="text-slate-500">→</span>
+                    <div class="px-4 py-2 bg-indigo-600 rounded-lg shadow-lg">CloudFront</div>
+                    <span class="text-slate-500">→</span>
+                    <div class="px-4 py-2 bg-green-600 rounded-lg shadow-lg">ALB</div>
+                    <span class="text-slate-500">→</span>
+                    <div class="px-4 py-2 bg-orange-600 rounded-lg shadow-lg">ECS/EKS</div>
+                    <span class="text-slate-500">↕</span>
+                    <div class="px-4 py-2 bg-blue-600 rounded-lg shadow-lg">S3 / RDS</div>
                 </div>
+                <p class="mt-6 text-slate-400 text-sm text-center leading-relaxed max-w-2xl mx-auto">
+                    전체 서비스는 Multi-AZ 환경에 배포되어 고가용성(High Availability)을 보장합니다.<br>
+                    사용자 트래픽은 Route 53과 CloudFront를 거쳐 ALB로 도달하며, <br>
+                    ALB 리스너 규칙에 따라 Private Subnet에 있는 각 컨테이너 서비스로 안전하게 라우팅됩니다.
+                </p>
             </div>
-            <div class="absolute top-0 right-0 -mr-16 -mt-16 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl"></div>
         </div>
 
-        <div id="card-grid" class="grid-3-cols animate-fade-in"></div>
+        <div id="card-grid" class="grid-3-cols">
+            </div>
     </div>
 
-    <div id="modal" class="hidden fixed inset-0 bg-slate-900/80 backdrop-blur-md flex items-center justify-center z-50 p-4" onclick="closeModal()">
-        <div class="bg-white w-full max-w-xl rounded-[2.5rem] shadow-2xl p-10 transform transition-all border border-slate-100" onclick="event.stopPropagation()">
-            <div id="modal-tag" class="inline-block px-4 py-1 rounded-full text-[11px] font-black uppercase tracking-widest mb-4 border"></div>
-            <h3 id="modal-title" class="text-4xl font-black text-slate-900 mb-6 tracking-tight"></h3>
-            <div class="h-px bg-slate-100 w-full mb-8"></div>
-            <p id="modal-desc" class="text-slate-600 text-lg leading-relaxed mb-10 font-medium"></p>
-            <button onclick="closeModal()" class="w-full py-5 bg-slate-900 text-white font-black rounded-2xl hover:bg-blue-600 transition-all shadow-xl active:scale-95">확인했습니다</button>
+    <div id="modal" class="modal opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center z-50 p-4">
+        <div class="absolute w-full h-full bg-slate-900/60 backdrop-blur-sm" onclick="closeModal()"></div>
+        <div class="bg-white w-full max-w-lg rounded-3xl shadow-2xl z-50 p-8 transform scale-95 transition-all">
+            <div id="modal-badge" class="inline-block px-3 py-1 rounded-full text-[10px] font-black uppercase mb-4 border"></div>
+            <h3 id="modal-title" class="text-3xl font-black text-slate-900 mb-4 tracking-tighter"></h3>
+            
+            <div class="space-y-6 mb-10">
+                <div>
+                    <h4 class="text-blue-600 font-bold mb-2">● 서비스 요약</h4>
+                    <p id="modal-short" class="text-slate-700 font-bold"></p>
+                </div>
+                <div>
+                    <h4 class="text-blue-600 font-bold mb-2">● 기술적 상세 설명</h4>
+                    <p id="modal-desc" class="text-slate-600 leading-relaxed"></p>
+                </div>
+            </div>
+
+            <div class="flex flex-col gap-3">
+                <a id="modal-link" target="_blank" href="#" class="w-full py-4 bg-blue-600 text-white text-center font-bold rounded-2xl hover:bg-blue-700 transition shadow-lg shadow-blue-100">AWS 서비스 콘솔로 이동</a>
+                <button onclick="closeModal()" class="w-full py-3 text-slate-400 font-bold hover:text-slate-600 transition">닫기</button>
+            </div>
         </div>
     </div>
 
     <script>
         const services = [
-            { cat: 'Networking', title: 'VPC', color: 'blue', desc: 'Virtual Private Cloud를 통해 논리적으로 격리된 네트워크 환경을 구축합니다. 서브넷 설계, 라우팅 테이블, 인터넷 게이트웨이 구성을 통해 리소스간 보안 통신을 보장합니다.' },
-            { cat: 'Compute', title: 'EC2', color: 'orange', desc: '확장 가능한 가상 서버 환경을 제공합니다. 사용자의 요구사항에 맞춘 인스턴스 타입 선택과 Auto Scaling을 통해 고가용성을 유지합니다.' },
-            { cat: 'Compute', title: 'ECS Fargate', color: 'orange', desc: '서버 관리 없이 컨테이너를 실행하는 서버리스 엔진입니다. 클러스터 운영 부담을 줄이고 애플리케이션 개발에만 집중할 수 있게 합니다.' },
-            { cat: 'Kubernetes', title: 'EKS', color: 'orange', desc: '관리형 쿠버네티스 서비스를 통해 컨테이너화된 애플리케이션을 대규모로 배포하고 관리합니다. AWS 보안 및 네트워킹 서비스와 긴밀하게 통합됩니다.' },
-            { cat: 'Registry', title: 'ECR', color: 'orange', desc: '완전관리형 Docker 컨테이너 레지스트리로, 이미지를 안전하게 저장하고 배포 파이프라인(CI/CD)과 연동하여 빠른 업데이트를 지원합니다.' },
-            { cat: 'Storage', title: 'Amazon S3', color: 'green', desc: '업계 최고의 확장성과 데이터 가용성을 제공하는 객체 스토리지입니다. 정적 웹 사이트 호스팅, 로그 보관, 데이터 레이크 구축에 사용됩니다.' },
-            { cat: 'Database', title: 'Amazon RDS', color: 'blue', desc: '관리형 관계형 데이터베이스 서비스입니다. 자동 백업, 패치 관리, 다중 AZ 배포를 통한 고가용성을 지원하여 DB 운영 부담을 해소합니다.' },
-            { cat: 'CDN', title: 'CloudFront', color: 'indigo', desc: '전 세계 Edge 로케이션을 통해 콘텐츠를 저지연으로 배포합니다. SSL 인증서 통합 및 AWS WAF 연동을 통해 보안 전송을 강화합니다.' },
-            { cat: 'DNS', title: 'Route 53', color: 'purple', short: 'DNS', desc: '가용성이 매우 높은 클라우드 Domain Name System입니다. 헬스 체크 기능을 통해 장애 발생 시 트래픽을 즉시 백업 리소스로 우회시킵니다.' },
-            { cat: 'Security', title: 'AWS WAF', color: 'pink', desc: '웹 애플리케이션 방화벽으로 SQL Injection, Cross-site Scripting 등 일반적인 웹 공격으로부터 인프라를 보호하고 트래픽 필터링을 수행합니다.' },
-            { cat: 'Monitoring', title: 'CloudWatch', color: 'red', desc: 'AWS 리소스 및 애플리케이션의 실시간 모니터링을 지원합니다. 로그 수집, 지표 분석 및 이상 감지 시 즉각적인 알람을 발송합니다.' },
-            { cat: 'Serverless', title: 'AWS Lambda', color: 'yellow', desc: '이벤트에 반응하여 코드를 실행하는 서버리스 컴퓨팅 서비스입니다. 실행 시간에 대해서만 비용을 지불하여 비용 효율적인 백엔드 구축이 가능합니다.' },
-            { cat: 'Gateway', title: 'API Gateway', color: 'purple', desc: '어떠한 규모에서도 API를 생성, 게시, 유지 관리 및 보안할 수 있도록 지원하는 관리형 서비스입니다. Lambda와 연동하여 서버리스 API를 구축합니다.' },
-            { cat: 'Messaging', title: 'Amazon SQS', color: 'orange', desc: '완전관리형 메시지 대기열 서비스입니다. 마이크로서비스 간의 결합도를 낮추고 분산 시스템의 확장성과 신뢰성을 높여줍니다.' },
-            { cat: 'Security', title: 'IAM', color: 'red', desc: 'AWS 리소스에 대한 액세스를 안전하게 제어합니다. 사용자, 그룹, 역할을 생성하여 최소 권한 원칙(Least Privilege)에 따른 보안을 실현합니다.' },
-            { cat: 'Automation', title: 'CodePipeline', color: 'blue', desc: '빠르고 안정적인 애플리케이션 업데이트를 위해 배포 단계를 자동화합니다. 소스 코드 변경부터 빌드, 테스트, 배포까지 전 과정을 관리합니다.' }
+            // 캡처 이미지 내 아이콘 스타일 반영 (AWS 아이콘 SVG 포함)
+            {{ cat: 'Networking', title: 'VPC', color: 'orange', short: '격리된 가상 네트워크', desc: ' Virtual Private Cloud를 통해 고객만의 논리적으로 격리된 네트워크 섹션을 구축합니다. 서브넷 구성, 라우팅 테이블 설정을 통해 인프라의 기초 체력을 형성하며 보안 그룹으로 정밀한 접근 제어가 가능합니다.', link: 'https://console.aws.amazon.com/vpc', icon: `<svg class="w-full h-full" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>` }},
+            {{ cat: 'Compute', title: 'EC2', color: 'orange', short: '확장 가능한 가상 서버', desc: 'Amazon Elastic Compute Cloud는 클라우드에서 안전하고 크기 조정이 가능한 컴퓨팅 용량을 제공합니다. Auto Scaling Group과 결합하여 트래픽 부하에 유연하게 대응합니다.', link: 'https://console.aws.amazon.com/ec2', icon: `<svg class="w-full h-full" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"></path></svg>` }},
+            {{ cat: 'Compute', title: 'ECS Fargate', color: 'blue', short: '서버리스 컨테이너 운영', desc: 'Docker 인스턴스를 관리하지 않고 컨테이너를 직접 실행하는 서버리스 컴퓨팅 엔진입니다. 애플리케이션에 필요한 CPU 및 메모리를 지정하기만 하면 AWS가 인프라 관리를 대신 처리합니다.', link: 'https://console.aws.amazon.com/ecs', icon: `<svg class="w-full h-full" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>` }},
+            {{ cat: 'Storage', title: 'S3', color: 'green', short: '무한 확장 객체 스토리지', desc: ' Simple Storage Service는 업계 최고의 확장성, 데이터 가용성 및 보안을 제공합니다. 정적 웹 사이트 호스팅, 데이터 레이크 구축, 백업 및 아카이빙 등 다방면에서 활용됩니다.', link: 'https://console.aws.amazon.com/s3', icon: `<svg class="w-full h-full" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path></svg>` }},
+            {{ cat: 'Monitoring', title: 'CloudWatch', color: 'red', short: '실시간 리소스 모니터링', desc: 'AWS 리소스와 애플리케이션의 상태를 지표와 로그를 통해 감시합니다. 지표에 따른 자동화된 알람을 생성하여 DevOps 운영의 핵심 도구로 활용됩니다.', link: 'https://console.aws.amazon.com/cloudwatch', icon: `<svg class="w-full h-full" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>` }},
+            {{ cat: 'Serverless', title: 'Lambda', color: 'yellow', short: '이벤트 기반 함수 실행', desc: '서버 프로비저닝 없이 코드만 업로드하여 실행합니다. S3 업로드, API 요청, DB 변경 등의 이벤트에 즉각 반응하며 사용한 시간만큼만 비용을 지불하는 경제적인 서비스입니다.', link: 'https://console.aws.amazon.com/lambda', icon: `<svg class="w-full h-full" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>` }}
         ];
 
-        const colorMap = {
-            blue: 'text-blue-600 bg-blue-50 border-blue-100',
-            orange: 'text-orange-600 bg-orange-50 border-orange-100',
-            green: 'text-green-600 bg-green-50 border-green-100',
-            indigo: 'text-indigo-600 bg-indigo-50 border-indigo-100',
-            purple: 'text-purple-600 bg-purple-50 border-purple-100',
-            pink: 'text-pink-600 bg-pink-50 border-pink-100',
-            red: 'text-red-600 bg-red-50 border-red-100',
-            yellow: 'text-yellow-700 bg-yellow-50 border-yellow-100'
-        };
+        const colors = {{
+            orange: 'bg-orange-50 text-orange-600 border-orange-100',
+            blue: 'bg-blue-50 text-blue-600 border-blue-100',
+            green: 'bg-green-50 text-green-600 border-green-100',
+            red: 'bg-red-50 text-red-600 border-red-100',
+            yellow: 'bg-yellow-50 text-yellow-700 border-yellow-100'
+        }};
 
         const grid = document.getElementById('card-grid');
-        services.forEach(s => {
+        services.forEach(s => {{
             const card = document.createElement('div');
-            card.className = "bg-white p-8 rounded-[2rem] border border-slate-200 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 cursor-pointer flex flex-col justify-between group";
+            card.className = "bg-white p-8 rounded-3xl border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer flex flex-col justify-between";
             card.onclick = () => openModal(s);
             card.innerHTML = `
                 <div>
-                    <span class="inline-block px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-tighter mb-4 border ${colorMap[s.color]}">${s.cat}</span>
-                    <h2 class="text-2xl font-black text-slate-800 mb-2 group-hover:text-blue-600 transition-colors">${s.title}</h2>
-                    <p class="text-slate-400 text-xs line-clamp-2 leading-relaxed">상세 기술 스택 및 인프라 구성 정보 확인</p>
+                    <div class="flex items-center justify-between mb-4 gap-2">
+                        <span class="${{colors[s.color]}} px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest border">${{s.cat}}</span>
+                        <div class="w-10 h-10 p-2 bg-white rounded-2xl shadow-inner border border-slate-100 text-slate-400">
+                            ${{s.icon}}
+                        </div>
+                    </div>
+                    <h2 class="text-2xl font-bold text-slate-800 mb-2">${{s.title}}</h2>
+                    <p class="text-slate-400 text-xs font-medium italic">${{s.short}}</p>
                 </div>
-                <div class="mt-8 flex items-center text-blue-600 font-bold text-sm">
-                    자세히 보기 
-                    <svg class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg>
-                </div>
+                <div class="mt-8 text-blue-600 font-bold text-xs flex items-center">자세히 보기 <span class="ml-2">→</span></div>
             `;
             grid.appendChild(card);
-        });
+        }});
 
-        function openModal(s) {
+        function openModal(s) {{
             const modal = document.getElementById('modal');
-            const tag = document.getElementById('modal-tag');
+            const badge = document.getElementById('modal-badge');
             document.getElementById('modal-title').innerText = s.title;
+            document.getElementById('modal-short').innerText = s.short;
             document.getElementById('modal-desc').innerText = s.desc;
-            tag.innerText = s.cat;
-            tag.className = `inline-block px-4 py-1 rounded-full text-[11px] font-black uppercase tracking-widest mb-4 border ${colorMap[s.color]}`;
-            modal.classList.remove('hidden');
-        }
-        function closeModal() { document.getElementById('modal').classList.add('hidden'); }
+            document.getElementById('modal-link').href = s.link;
+            badge.innerText = s.cat;
+            badge.className = `inline-block px-3 py-1 rounded-full text-[10px] font-black uppercase mb-4 border ${{colors[s.color]}}`;
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            modal.querySelector('div:last-child').classList.replace('scale-95', 'scale-100');
+        }}
+
+        function closeModal() {{
+            const modal = document.getElementById('modal');
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            modal.querySelector('div:last-child').classList.replace('scale-100', 'scale-95');
+        }}
     </script>
 </body>
 </html>
